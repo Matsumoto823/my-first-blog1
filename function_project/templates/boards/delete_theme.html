@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  body {
+    background-color: #FFFFE0; /* 背景色を薄い黄色に設定 */
+  }
+</style>
+<div class="text-center">
+<h3>捨てるモノ削除画面</h3>
+<form method="POST">
+{% csrf_token %}
+{{ delete_theme_form.as_p }}
+ <br>
+ <p>削除してもよろしいですか？</p>
+<input type="submit" class="btn btn-danger" value="削除する">
+<div>
+</form>
+{% endblock %}

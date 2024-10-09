@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}  <!-- 静的ファイルを読み込むために追加 -->
+{% block content %}
+<p>ホーム画面</p>
+{% if messages %}
+  {% for message in messages %}
+    <div>{{ message.message }}</div>
+  {% endfor %}
+{% endif %}
+<div class="d-flex justify-content-center">
+<!-- 画像を追加 -->
+<img src="{% static 'home_screen/images/images1.png' %}" alt="捨てて居心地よく暮そう！" style="width: 800px; height: auto;">
+</div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .bold-underline {
+            text-decoration: underline;
+            text-decoration-thickness: 4px; /* 太さを指定 */
+            color: orange; /* 色を指定 */
+        }
+
+         .bold-underline {
+            display: inline; /* インライン要素にするため */
+            border-bottom: 2px solid gray; /* 太さと色を指定 */
+            color: gray; /* 文字色を指定 */
+            padding-bottom: 2px; /* 余白を調整 */
+        }
+
+         .custom-underline {
+            display: inline; /* インライン要素にするため */
+            border-bottom: 4px solid #E88B6D; /* ボーダーの色を赤に設定 */
+            color: #696969; /* 文字色をグレーに設定 */
+            padding-bottom: 2px; /* ボーダーとの距離を調整 */
+        }
+    </style>
+</head>
+
+<boby>
+<div class="text-center">
+  <h3 style="background-color: #FFFFE0; color: #696969;">
+  モノを減らすことで片付けが簡単にし「居心地よく暮す」を応援するアプリです。
+  </h3>
+  <br>
+  <h4 style="color: #696969;">～できること～</h4>
+     <p><span class="custom-underline">・捨てるモノ（捨てたいモノ）」リストの登録・管理</p>
+     <p><span class="custom-underline">・捨てたモノの見える化し、『一日１捨て』を目標に継続期間の表示</p>
+     <p><span class="custom-underline">・登録者同士の「捨てたモノ」の共有</p>
+</div>
+</body>
+{% endblock %}

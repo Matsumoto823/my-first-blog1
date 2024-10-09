@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center">
+  {% if messages %}
+    {% for message in messages %}
+      <div>{{ message.message }}</div>
+    {% endfor %}
+  {% endif %}
+  <br>
+  <form method="POST">
+    {% csrf_token %}
+    <style>
+      body {
+        font-size: 1.5rem; /* 全体のフォントサイズを1.5倍に設定 */
+      }
+      .form-control {
+        font-size: 1.2rem; /* 入力フォームのフォントサイズを調整 */
+      }
+    </style>
+    {{ login_form.as_p }}
+    <input type="submit" class="btn btn-outline-primary btn-lg" value="ログイン"> <!-- btn-lgを追加 -->
+  </form>
+</div>
+{% endblock %}

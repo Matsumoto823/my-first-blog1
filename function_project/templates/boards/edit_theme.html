@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  body {
+    background-color: #FFFFE0; /* 背景色を薄い黄色に設定 */
+  }
+</style>
+<div class="text-center">
+  <h3>捨てるモノ編集画面</h3>
+  <form method="POST">
+    {% csrf_token %}
+    {{ edit_theme_form.as_p }}
+    <input type="submit" class="btn btn-primary" value="更新する">
+  </form>
+  <br>
+  <p>
+    <a class="btn btn-danger" href="{% url 'boards:delete_theme' id=id %}">削除する</a>
+  </p>
+</div>
+{% endblock %}

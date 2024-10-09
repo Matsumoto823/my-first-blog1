@@ -1,0 +1,27 @@
+body {
+  background-color: #d3d3d3; /* ライトグレーに設定 */
+}
+
+.form-centered {
+  max-width: 600px; /* フォームの最大幅を指定 */
+  margin: 0 auto; /* 左右中央に配置 */
+  text-align: left; /* フォーム内のテキストは左揃え */
+}
+
+.text-center {
+  text-align: center; /* 要素を中央揃えに */
+}
+
+.text-left {
+  text-align: left; /* テキストを左揃え */
+}
+
+.regist-info ul {
+  list-style-position: inside; /* リストのドットをテキストの内側に */
+  padding-left: 0; /* 左側の余白をなくす */
+  margin-left: 0; /* 左側のマージンをなくす */
+}
+
+.regist-info ul li {
+  margin-left: 10px; /* リストアイテムの左余白を調整 */
+}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="styles.css">
+{% block content %}
+<div class="container">
+  <form method="POST" class="form-centered">
+    {% csrf_token %}
+    {{ regist_form.as_p }}
+    <input type="submit" class="btn btn-outline-primary btn-lg" value="ユーザ登録">  <!-- btn-lgを追加 -->
+  </form>
+  <br>
+
+  <style>
+    body {
+      font-size: 1.5rem; /* 全体のフォントサイズを1.5倍に設定 */
+    }
+    .rounded-box {
+      display: inline-block; /* インラインブロック要素にするため */
+      border: 2px solid #E88B6D; /* ボーダーの色を赤に設定 */
+      border-radius: 10px; /* 角を丸くする */
+      color: #696969; /* 文字色をグレーに設定 */
+      background-color: #FFFFE0; /* 背景色を薄い黄色に設定 */
+      padding: 15px; /* 内側の余白を設定 */
+      margin: 10px; /* 外側の余白を設定 */
+      font-size: 1.2rem; /* ラウンデッドボックス内のフォントサイズを調整 */
+    }
+  </style>
+  <div class="footer">
+    <div class="regist-info text-left">
+      <p class="rounded-box">ユーザー名は、捨てるモノ一覧画面にて公開されます。<br>
+        ユーザー名と同じパスワードは利用できません。<br>
+        ユーザー名およびパスワードにスペース、半角スペースは利用できません。<br>
+        パスワードは大文字、小文字、数字を組み合わせた8文字以上必要です。
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

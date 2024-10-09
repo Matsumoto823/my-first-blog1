@@ -1,0 +1,56 @@
+{% extends "base.html" %} 
+{% block content %}
+<style>
+  body {
+    background-color: #FFFFE0; /* 背景色を薄い黄色に設定 */
+  }
+</style>
+
+{% if messages %}
+  {% for message in messages %}
+  <div>{{ message.message }}</div>
+  {% endfor %}
+{% endif %}
+<form method="post" action="{% url 'boards:update_check' %}">
+  {% csrf_token %}
+  <h3>捨てるモノ一覧画面</h3>
+ <br>
+ <p style="font-size: 20px; font-weight: bold; text-align: center; color: #EB5424;">
+ 『一日一捨』 捨て活の継続 {{ ContinuationModel.get_continuous_days_count }} 日目です。
+ </p>
+
+  <p>
+    <a class="btn btn-primary" href="{% url 'boards:create_theme' %}">捨てるモノを登録する</a>
+  </p>
+  <p>それぞれの項目の<span class="text-primary">ユーザー名</span>をクリックすると、<strong>捨てるモノ</strong>の編集ができます</p>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>捨てたよチェック</th> <!-- チェックリストの列を追加 -->
+        <th>捨てるモノ</th>
+        <th>ユーザー名</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for theme in themes %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>
+          <!-- チェックボックスの状態を反映し、フォームに含める -->
+          <input type="checkbox" name="checked_{{ theme.id }}" {% if theme.is_checked %}checked{% endif %}>
+        </td>
+        <td>{{ theme.title }}</td>
+        {% if theme.user.id == user.id %}
+          <td><a href="{% url 'boards:edit_theme' id=theme.id %}">{{ theme.user.username }}</a></td>
+        {% else %}
+          <td>{{ theme.user }}</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-success">チェック☑を保存する</button>
+</form>
+{% endblock %}
+
