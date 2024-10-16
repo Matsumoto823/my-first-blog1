@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block content %}
 <style>
   body {
@@ -11,40 +11,61 @@
   <div>{{ message.message }}</div>
   {% endfor %}
 {% endif %}
+
+<h3>捨てるモノ一覧画面</h3>
+<br>
+
+<!-- 現在ログインしているユーザーのデータのみ表示 -->
+{% if user_themes %}
+  <p style="font-size: 20px; font-weight: bold; text-align: center; color: #EB5424;">
+      『一日一捨♪』{{ user_themes.0.user.username }}さんの捨て活の継続は、 {{ user_themes.0.continuous_days }} 日目です。
+  </p>
+{% else %}
+  <p style="font-size: 20px; font-weight: bold; text-align: center; color: #EB5424;">
+  今日もコツコツ『一日一捨♪』
+  </p>  <!-- データがない場合のメッセージ -->
+{% endif %}
+
 <form method="post" action="{% url 'boards:update_check' %}">
   {% csrf_token %}
-  <h3>捨てるモノ一覧画面</h3>
- <br>
- <p style="font-size: 20px; font-weight: bold; text-align: center; color: #EB5424;">
- 『一日一捨』 捨て活の継続 {{ ContinuationModel.get_continuous_days_count }} 日目です。
- </p>
-
+  <!-- すべてのテーマを表示 -->
   <p>
     <a class="btn btn-primary" href="{% url 'boards:create_theme' %}">捨てるモノを登録する</a>
   </p>
-  <p>それぞれの項目の<span class="text-primary">ユーザー名</span>をクリックすると、<strong>捨てるモノ</strong>の編集ができます</p>
+  <p style="padding-left: 30px;">・自分の登録した<strong>『捨てるモノ』</strong>は、<span class="text-primary">ユーザー名</span>をクリックすると名称の編集ができます！</p>
+  <p style="padding-left: 30px;">・<strong>捨てたよチェック</strong>にチェックを入れた後は、下にある<span class="text-primary">チェック☑を保存するボタン</span>をクリックして保存してください♪</p>
+  <br>
+  <!-- 切り替えボタン -->
+<div>
+  {% if show_user_only %}
+    <a href="?show_user_only=false" class="btn btn-secondary">すべての捨てるモノ一覧を表示</a>
+  {% else %}
+    <a href="?show_user_only=true" class="btn btn-secondary">自分の捨てるモノ一覧を表示</a>
+  {% endif %}
+</div>
+
   <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th>#</th>
-        <th>捨てたよチェック</th> <!-- チェックリストの列を追加 -->
+        <th>捨てたよチェック☑</th> <!-- チェックリストの列を追加 -->
         <th>捨てるモノ</th>
         <th>ユーザー名</th>
       </tr>
     </thead>
     <tbody>
-      {% for theme in themes %}
+      {% for data in all_themes %}
       <tr>
         <td>{{ forloop.counter }}</td>
         <td>
           <!-- チェックボックスの状態を反映し、フォームに含める -->
-          <input type="checkbox" name="checked_{{ theme.id }}" {% if theme.is_checked %}checked{% endif %}>
+          <input type="checkbox" name="checked_{{ data.id }}" {% if data.is_checked %}checked{% endif %}>
         </td>
-        <td>{{ theme.title }}</td>
-        {% if theme.user.id == user.id %}
-          <td><a href="{% url 'boards:edit_theme' id=theme.id %}">{{ theme.user.username }}</a></td>
+        <td>{{ data.title }}</td>
+        {% if data.user.id == user.id %}
+          <td><a href="{% url 'boards:edit_theme' id=data.id %}">{{ data.user.username }}</a></td>
         {% else %}
-          <td>{{ theme.user }}</td>
+          <td>{{ data.user.username }}</td>
         {% endif %}
       </tr>
       {% endfor %}
@@ -53,4 +74,3 @@
   <button type="submit" class="btn btn-success">チェック☑を保存する</button>
 </form>
 {% endblock %}
-
